@@ -14,28 +14,73 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
         with:
-          # The action's default includes the obsolete 'tools' package, which makes sdkmanager fail.
           packages: platform-tools
+
       - name: Install Android SDK components
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Verify bundled app source
+        run: |
+          test -s app/src/main/assets/index.html
+          grep -q '<html' app/src/main/assets/index.html
+          grep -q 'DailyFlow' app/src/main/assets/index.html
+
       - name: Build debug APK
-        run: gradle assembleDebug
-      - name: Upload APK
+        run: gradle --no-daemon clean assembleDebug
+
+      - name: Validate APK package
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          echo "APK size: $(stat -c%s "$APK") bytes"
+          unzip -t "$APK"
+          unzip -l "$APK" | tee apk-contents.txt
+          unzip -l "$APK" | grep -q 'AndroidManifest.xml'
+          unzip -l "$APK" | grep -q 'classes.dex'
+          unzip -l "$APK" | grep -q 'assets/index.html'
+          mkdir -p release-package
+          cp "$APK" release-package/DailyFlow.apk
+          cat > release-package/README-INSTALL.txt <<'EOF'
+DailyFlow Android app
+
+INSTALL:
+1. Extract this downloaded ZIP file first.
+2. On your Android phone, open DailyFlow.apk.
+3. If Android asks, allow your browser or Files app to install unknown apps.
+4. Tap Install, then Open.
+
+IMPORTANT:
+Install the file named DailyFlow.apk, not this ZIP file.
+This is a debug-signed build created by GitHub Actions.
+Your routine history is stored locally on this device.
+EOF
+          cd release-package
+          zip -9 ../DailyFlow-Android-Install.zip DailyFlow.apk README-INSTALL.txt
+
+      - name: Upload validated APK and install ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: DailyFlow-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: DailyFlow-Android-Install
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            DailyFlow-Android-Install.zip
+            release-package/README-INSTALL.txt
           if-no-files-found: error
           retention-days: 14
