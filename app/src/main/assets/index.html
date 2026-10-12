@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f7fb">
+<title>DailyFlow — Routine Tracker</title>
+<style>
+:root{--ink:#182230;--muted:#758093;--line:#e5e8f0;--bg:#f5f6fb;--card:#fff;--accent:#6558e8;--green:#16866b;--red:#c94c58}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px 16px 100px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:11px}.logo{width:42px;height:42px;border-radius:14px;background:var(--accent);color:white;display:grid;place-items:center;font-size:23px}.brand h1{font-size:19px;margin:0}.brand p{margin:2px 0 0;font-size:12px;color:var(--muted)}.date{background:white;border:1px solid var(--line);padding:9px 12px;border-radius:12px;font-size:12px;font-weight:700;color:#596274}.eyebrow{font-size:12px;color:var(--muted);font-weight:750;letter-spacing:.6px;margin:0 0 7px}.heading{font-size:clamp(25px,4vw,34px);letter-spacing:-1px;margin:0 0 7px}.sub{font-size:14px;color:var(--muted);margin:0 0 22px}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px}.stat-label{font-size:12px;color:var(--muted);font-weight:650}.stat-value{font-size:25px;font-weight:800;letter-spacing:-.7px;margin:5px 0 2px}.stat-note{font-size:11px;color:var(--muted)}.progress-track{height:6px;background:#ececf5;border-radius:9px;overflow:hidden;margin-top:10px}.progress-fill{height:100%;background:var(--accent);width:0;transition:width .2s}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:27px 0 13px}.section-head h2{font-size:18px;margin:0}.actions{display:flex;gap:8px;align-items:center}.filter{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 11px;color:#626b7d;font-size:12px;font-weight:700}.filter.active{background:#252b3a;color:white;border-color:#252b3a}.add{background:var(--accent);color:white;border:0;border-radius:11px;padding:10px 14px;font-size:13px;font-weight:750}.table-wrap{width:100%;overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 3px 12px #20263b05}table{border-collapse:separate;border-spacing:0;width:100%;min-width:850px;font-size:12px}thead th{background:#fafaff;color:#727b8d;font-size:10px;letter-spacing:.45px;text-transform:uppercase;padding:14px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}thead th:first-child{text-align:left;padding-left:16px;min-width:190px}tbody td{padding:13px 10px;border-bottom:1px solid #eff0f5;text-align:center;vertical-align:middle}tbody tr:last-child td{border-bottom:0}tbody td:first-child{text-align:left;padding-left:16px}.routine-name{font-size:13px;font-weight:750;overflow-wrap:anywhere}.routine-meta{margin-top:5px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}.tag{font-size:10px;background:#f0efff;color:#685ddd;padding:4px 7px;border-radius:6px;font-weight:700}.time{font-size:10px;color:var(--muted)}.day-head{display:flex;flex-direction:column;gap:3px}.day-head small{font-size:9px;color:#a0a6b4}.day-box{width:27px;height:27px;border:1.5px solid #d8dce7;background:#fff;border-radius:8px;color:white;display:inline-grid;place-items:center;padding:0}.day-box.checked{background:var(--green);border-color:var(--green)}.day-box:disabled{opacity:.32;cursor:not-allowed}.day-box svg{width:15px;height:15px}.streak{font-size:12px;font-weight:800;white-space:nowrap}.streak span{font-size:14px}.status{display:inline-block;padding:5px 8px;border-radius:7px;background:#fff1db;color:#96651c;font-size:10px;font-weight:800;white-space:nowrap}.status.done{background:#e5f6ef;color:var(--green)}.del{border:0;background:#fff1f1;color:var(--red);width:28px;height:28px;border-radius:8px;font-size:17px;line-height:1}.empty{text-align:center;padding:36px 15px;color:var(--muted);font-size:13px}.empty strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}.tip{font-size:11px;color:#9299a8;margin:12px 2px 0}.modal-backdrop{display:none;position:fixed;z-index:5;inset:0;background:#14182780;align-items:flex-end;justify-content:center;padding:12px}.modal-backdrop.open{display:flex}.modal{width:min(500px,100%);background:white;border-radius:22px;padding:22px 19px max(20px,env(safe-area-inset-bottom));box-shadow:0 20px 80px #0002}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.modal h2{font-size:20px;margin:0}.close{border:0;background:#f0f1f6;border-radius:9px;width:34px;height:34px;font-size:20px}.field{display:block;margin-bottom:14px}.field span{display:block;font-size:12px;font-weight:750;color:#596274;margin-bottom:7px}.field input,.field select{width:100%;border:1px solid #dfe3ed;border-radius:11px;padding:12px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--accent)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.save{width:100%;padding:14px;border:0;border-radius:12px;background:var(--accent);color:#fff;font-weight:800}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);padding:11px 15px;border-radius:11px;background:#252b3a;color:white;font-size:12px;opacity:0;pointer-events:none;transition:.2s;z-index:8}.toast.show{opacity:1}.footer{text-align:center;font-size:11px;color:#a0a6b4;margin-top:20px}
+@media(max-width:520px){.app{padding:16px 11px 60px}.summary{gap:7px}.stat{padding:12px 10px}.stat-label{font-size:10px}.stat-value{font-size:21px}.stat-note{font-size:10px}.section-head{align-items:flex-start;flex-direction:column}.actions{width:100%;flex-wrap:wrap}.filter{flex:1}.add{margin-left:auto}.date{font-size:10px;padding:8px}.form-row{grid-template-columns:1fr}}
+@media(min-width:600px){.modal-backdrop{align-items:center}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><div class="brand"><div class="logo">✓</div><div><h1>DailyFlow</h1><p>Your day, with intention</p></div></div><div class="date" id="dateLabel">TODAY</div></header>
+<p class="eyebrow" id="greeting">YOUR DAILY ROUTINE DASHBOARD</p><h2 class="heading">Build your daily rhythm.</h2><p class="sub">Small steps, done consistently, make a big difference.</p>
+<section class="summary">
+<div class="stat"><div class="stat-label">Today's progress</div><div class="stat-value" id="progressValue">0%</div><div class="stat-note" id="progressNote">0 of 0 routines complete</div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+<div class="stat"><div class="stat-label">Active routines</div><div class="stat-value" id="routineCount">0</div><div class="stat-note">Routines in your list</div></div>
+<div class="stat"><div class="stat-label">Best current streak</div><div class="stat-value" id="bestStreak">🔥 0 days</div><div class="stat-note">Across all routines</div></div>
+</section>
+<div class="section-head"><h2>Weekly routine table</h2><div class="actions"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="pending">To do</button><button class="filter" data-filter="done">Completed today</button><button class="add" id="openAdd">＋ Add routine</button></div></div>
+<div class="table-wrap"><table aria-label="Weekly routine tracker"><thead><tr><th>Routine</th><th id="head0"></th><th id="head1"></th><th id="head2"></th><th id="head3"></th><th id="head4"></th><th id="head5"></th><th id="head6"></th><th>Streak</th><th>Today</th><th>Delete</th></tr></thead><tbody id="routineRows"></tbody></table><div class="empty" id="emptyState" hidden><strong>No routines to show</strong>Add a routine or choose another filter.</div></div>
+<p class="tip">Tip: tap a day’s checkbox to update its history. Future days are disabled. Swipe sideways on mobile to see the full table.</p><div class="footer">DailyFlow · Your progress is saved in this browser</div>
+</main>
+<div class="modal-backdrop" id="modalBackdrop"><form class="modal" id="routineForm"><div class="modal-head"><h2>Add a routine</h2><button type="button" class="close" id="closeModal" aria-label="Close">×</button></div><label class="field"><span>Routine name</span><input id="routineName" maxlength="80" placeholder="e.g. Read for 20 minutes" required></label><div class="form-row"><label class="field"><span>Category</span><select id="routineCategory"><option>Personal</option><option>Health</option><option>Learning</option><option>Work</option><option>Mindfulness</option><option>Other</option></select></label><label class="field"><span>Reminder time (optional)</span><input id="routineTime" type="time"></label></div><button class="save" type="submit">Save routine</button></form></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const KEY='dailyflow-routines-v2';
+let currentFilter='all',toastTimer;
+const todayDate=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate());};
+const keyOf=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const todayKey=()=>keyOf(todayDate());
+const parseKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d);};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+const dateLabel=d=>new Intl.DateTimeFormat(undefined,{weekday:'short',month:'short',day:'numeric'}).format(d);
+const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const defaultRoutines=[
+{id:'starter-water',name:'Drink 8 glasses of water',category:'Health',time:'',history:{}},
+{id:'starter-reading',name:'Read for 20 minutes',category:'Learning',time:'',history:{}},
+{id:'starter-move',name:'Exercise or take a walk',category:'Health',time:'',history:{}},
+{id:'starter-plan',name:'Plan the day',category:'Personal',time:'',history:{}}
+];
+function loadRoutines(){
+ try{const raw=localStorage.getItem(KEY);if(raw){const value=JSON.parse(raw);if(Array.isArray(value))return value;}}catch(e){}
+ return defaultRoutines.map(t=>({...t,history:{}}));
+}
+let routines=loadRoutines();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(routines));}catch(e){toast('Changes work for this session, but browser storage is unavailable.');}}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2300);}
+function isDone(r,k){return !!(r.history&&r.history[k]);}
+function streak(r){
+ let d=todayDate(),k=keyOf(d);
+ if(!isDone(r,k))d=addDays(d,-1);
+ let count=0;
+ for(let i=0;i<366;i++){if(isDone(r,keyOf(d))){count++;d=addDays(d,-1);}else break;}
+ return count;
+}
+function weekStart(d){const x=new Date(d);const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x;}
+function checkSvg(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>';}
+function render(){
+ const now=todayDate(),today=todayKey(),start=weekStart(now);
+ $('dateLabel').textContent=dateLabel(now).toUpperCase();
+ const hr=new Date().getHours();$('greeting').textContent=hr<12?'GOOD MORNING':hr<17?'GOOD AFTERNOON':'GOOD EVENING';
+ const done=routines.filter(r=>isDone(r,today)).length,total=routines.length,pct=total?Math.round(done/total*100):0;
+ $('progressValue').textContent=pct+'%';$('progressNote').textContent=`${done} of ${total} routines complete`;$('progressFill').style.width=pct+'%';
+ $('routineCount').textContent=total;
+ $('bestStreak').textContent='🔥 '+(routines.length?Math.max(0,...routines.map(streak)):0)+' days';
+ for(let i=0;i<7;i++){const d=addDays(start,i);$('head'+i).innerHTML=`<div class="day-head">${new Intl.DateTimeFormat(undefined,{weekday:'short'}).format(d)}<small>${d.getDate()} ${new Intl.DateTimeFormat(undefined,{month:'short'}).format(d)}</small></div>`;}
+ const shown=routines.filter(r=>currentFilter==='all'||(currentFilter==='done'?isDone(r,today):!isDone(r,today)));
+ $('emptyState').hidden=shown.length!==0;
+ $('routineRows').innerHTML=shown.map(r=>{
+  const currentStreak=streak(r),isTodayDone=isDone(r,today);
+  const days=Array.from({length:7},(_,i)=>{
+   const d=addDays(start,i),k=keyOf(d),future=k>today,checked=isDone(r,k);
+   return `<td><button class="day-box ${checked?'checked':''}" data-action="toggle" data-id="${escapeHtml(r.id)}" data-date="${k}" aria-label="${escapeHtml(r.name)} ${dateLabel(d)} ${checked?'completed':'not completed'}" ${future?'disabled title="Future dates cannot be checked"':''}>${checked?checkSvg():''}</button></td>`;
+  }).join('');
+  return `<tr><td><div class="routine-name">${escapeHtml(r.name)}</div><div class="routine-meta"><span class="tag">${escapeHtml(r.category||'Personal')}</span>${r.time?`<span class="time">◷ ${escapeHtml(r.time)}</span>`:''}</div></td>${days}<td><div class="streak"><span>🔥</span> ${currentStreak}d</div></td><td><span class="status ${isTodayDone?'done':''}">${isTodayDone?'Done':'Pending'}</span></td><td><button class="del" data-action="delete" data-id="${escapeHtml(r.id)}" aria-label="Delete ${escapeHtml(r.name)}" title="Delete routine">×</button></td></tr>`;
+ }).join('');
+}
+$('routineRows').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-action]');if(!b)return;
+ const r=routines.find(x=>x.id===b.dataset.id);if(!r)return;
+ if(b.dataset.action==='toggle'){
+  const k=b.dataset.date;if(k>todayKey())return;
+  if(!r.history)r.history={};if(isDone(r,k))delete r.history[k];else r.history[k]=true;
+  save();render();
+ }else if(b.dataset.action==='delete'){
+  if(!confirm(`Delete "${r.name}" and its completion history?`))return;
+  routines=routines.filter(x=>x.id!==r.id);save();render();toast('Routine deleted');
+ }
+});
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{
+ currentFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));render();
+}));
+function openModal(){$('modalBackdrop').classList.add('open');setTimeout(()=>$('routineName').focus(),50);}
+function closeModal(){$('modalBackdrop').classList.remove('open');$('routineForm').reset();}
+$('openAdd').addEventListener('click',openModal);$('closeModal').addEventListener('click',closeModal);
+$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+$('routineForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=$('routineName').value.trim();if(!name){$('routineName').focus();return;}
+ const id='r-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
+ routines.unshift({id,name,category:$('routineCategory').value,time:$('routineTime').value,history:{}});
+ save();currentFilter='all';document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));
+ render();closeModal();toast('Routine added successfully');
+});
+render();
+})();
+</script>
+</body>
+</html>
